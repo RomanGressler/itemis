@@ -27,4 +27,5 @@ class Item:
         return tax_rounded * float(self.amount)
 
     def round_tax(self, value):
+        """Rounds up the tax to the nearest 0.05"""
         return math.ceil(value / 0.05) * 0.05

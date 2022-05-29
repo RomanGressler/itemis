@@ -1,13 +1,13 @@
-import math
-
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.dropdown import DropDown
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+
 from item import *
+
 
 class TaxCalculator(App):
     def build(self):
@@ -117,6 +117,7 @@ class TaxCalculator(App):
         return self.window
 
     def add_item(self, instance):
+        """adds an item in the gui"""
         item = Item(
             self.item_name.text,
             self.convert_back_to_enum(self.select_button.text),
@@ -141,6 +142,7 @@ class TaxCalculator(App):
         self.window.add_widget(self.item)
 
     def submit_items(self, instance):
+        """shows the final tax and amount in the gui"""
         tax_label = Label(
             text="Sales Taxes:",
             size_hint=(1, 0.1),
@@ -163,12 +165,14 @@ class TaxCalculator(App):
         self.window.add_widget(total_amount)
 
     def calculate_total_tax(self):
+        """calculates the total tax of all added items"""
         tax = 0
         for item in self.items:
             tax += item.calc_tax() * float(item.amount)
         return str("{:.2f}".format(tax))
 
     def calculate_total_amount(self):
+        """calculates the total price of all added items"""
         total = 0
         for item in self.items:
             total += float(item.price) * float(item.amount)
@@ -176,11 +180,13 @@ class TaxCalculator(App):
         return str("{:.2f}".format(total))
 
     def calculate_price(self, item):
+        """calculates the price of a single item"""
         result = float(item.price) * float(item.amount)
         result += float(item.calc_tax()) * float(item.amount)
         return str("{:.2f}".format(result))
 
     def convert_back_to_enum(self, enum):
+        """converts the text value of the dropdown menu back to an enum"""
         if enum == "BOOK":
             return ItemType.BOOK
         if enum == "DEFAULT":
@@ -189,6 +195,7 @@ class TaxCalculator(App):
             return ItemType.MEDICAL
         if enum == "FOOD":
             return ItemType.FOOD
+
 
 # run tax calculator
 if __name__ == "__main__":
