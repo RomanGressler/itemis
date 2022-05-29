@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Item_type(Enum):
+class ItemType(Enum):
     DEFAULT = 0
     BOOK = 1
     FOOD = 2
